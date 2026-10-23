@@ -1,0 +1,1 @@
+import { LoaderCircle } from 'lucide-react';import './LoadingState.css';export default function LoadingState({label='Loading your workspace...'}){return <div className="loading-state"><LoaderCircle className="spin" size={22}/><span>{label}</span></div>}

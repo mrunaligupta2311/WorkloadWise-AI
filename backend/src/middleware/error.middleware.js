@@ -1,0 +1,2 @@
+export function notFound(req, res) { res.status(404).json({ message: `Route not found: ${req.method} ${req.path}` }); }
+export function errorHandler(err, _req, res, _next) { console.error(err); if (err?.name === 'ZodError') return res.status(400).json({ message: 'Please check the submitted fields.', errors: err.errors }); if (err?.code === 'P2002') return res.status(409).json({ message: 'That record already exists.' }); res.status(err.status || 500).json({ message: err.status ? err.message : 'Something went wrong. Please try again.' }); }

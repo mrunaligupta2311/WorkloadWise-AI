@@ -1,0 +1,23 @@
+{
+  "name": "workloadwise-ai",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n API,WEB -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm --workspace backend run dev",
+    "dev:web": "npm --workspace frontend run dev",
+    "build": "npm --workspace frontend run build",
+    "db:generate": "npm --workspace backend run db:generate",
+    "db:push": "npm --workspace backend run db:push",
+    "db:seed": "npm --workspace backend run db:seed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "concurrently": "^9.1.2"
+  },
+  "overrides": {}
+}

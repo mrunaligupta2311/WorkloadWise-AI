@@ -1,0 +1,1 @@
+import './SectionHeader.css';export default function SectionHeader({title,subtitle,action,children}){return <div className="section-header"><div><h3>{title}</h3>{subtitle&&<p>{subtitle}</p>}</div><div className="section-actions">{children}{action}</div></div>}

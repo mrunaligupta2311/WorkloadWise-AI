@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  BLOCKED
+  DONE
+}
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(EMPLOYEE)
+  department   String   @default("Engineering")
+  avatarUrl    String?
+  isActive     Boolean  @default(true)
+  notificationsEnabled Boolean @default(true)
+  workloadInsightsEnabled Boolean @default(true)
+  weeklyCapacityHours Float @default(40)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  assignedTasks Task[]  @relation("AssignedTasks")
+  createdTasks  Task[]  @relation("CreatedTasks")
+  workLogs      WorkLog[] @relation("UserWorkLogs")
+  reassignedFrom WorkReassignment[] @relation("ReassignmentFrom")
+  reassignedTo WorkReassignment[] @relation("ReassignmentTo")
+  reassignmentChanges WorkReassignment[] @relation("ReassignmentChangedBy")
+}
+
+model Task {
+  id             String       @id @default(cuid())
+  title          String
+  description    String?
+  status         TaskStatus   @default(TODO)
+  priority       TaskPriority @default(MEDIUM)
+  estimatedHours Float        @default(2)
+  dueDate        DateTime?
+  completedAt    DateTime?
+  attachmentUrl  String?
+  assigneeId     String
+  creatorId      String
+  assignee       User         @relation("AssignedTasks", fields: [assigneeId], references: [id], onDelete: Cascade)
+  creator        User         @relation("CreatedTasks", fields: [creatorId], references: [id], onDelete: Cascade)
+  workLogs       WorkLog[]    @relation("TaskWorkLogs")
+  reassignmentHistory WorkReassignment[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  @@index([assigneeId, status])
+  @@index([dueDate, status])
+}
+
+
+model WorkLog {
+  id        String   @id @default(cuid())
+  hours     Float
+  note      String?
+  taskId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  task Task @relation("TaskWorkLogs", fields: [taskId], references: [id], onDelete: Cascade)
+  user User @relation("UserWorkLogs", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([taskId, createdAt])
+  @@index([userId, createdAt])
+}
+
+
+model WorkReassignment {
+  id          String   @id @default(cuid())
+  taskId      String
+  fromUserId  String?
+  toUserId    String
+  changedById String
+  reason      String?
+  createdAt   DateTime @default(now())
+
+  task      Task  @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  fromUser  User? @relation("ReassignmentFrom", fields: [fromUserId], references: [id], onDelete: SetNull)
+  toUser    User  @relation("ReassignmentTo", fields: [toUserId], references: [id], onDelete: Cascade)
+  changedBy User  @relation("ReassignmentChangedBy", fields: [changedById], references: [id], onDelete: Cascade)
+
+  @@index([taskId, createdAt])
+  @@index([toUserId, createdAt])
+}

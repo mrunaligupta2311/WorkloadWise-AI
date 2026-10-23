@@ -1,0 +1,2 @@
+import './StatCard.css';
+export default function StatCard({label,value,caption,icon:Icon,tone='mint',trend}){return <article className="stat-card"><div className="stat-top"><span>{label}</span><div className={`stat-icon ${tone}`}><Icon size={18}/></div></div><div className="stat-value">{value}</div><div className="stat-caption"><span className="stat-trend">{trend||'↗'}</span> {caption}</div></article>}
