@@ -291,3 +291,118 @@
     padding: 12px;
   }
 }
+
+/* TASK CARD — ONE UNIFIED CONTAINER */
+.tasks-page .task-card,
+.tasks-page .task-card:hover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+  padding: 20px 22px;
+  margin: 0 0 12px;
+  background: #ffffff;
+  border: 1px solid #e5ebf2;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(30, 50, 75, 0.035);
+  transform: none;
+}
+
+.tasks-page .task-card-main,
+.tasks-page .task-card-copy,
+.tasks-page .task-card-actions {
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.tasks-page .task-card-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tasks-page .task-card-copy {
+  width: 100%;
+}
+
+.tasks-page .task-card-copy h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #243047;
+}
+
+.tasks-page .task-card-copy p {
+  max-width: 100%;
+  margin: 0 0 12px;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.tasks-page .task-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.tasks-page .ww-effort {
+  max-width: 100%;
+  margin-top: 14px;
+  gap: 6px;
+}
+
+.tasks-page .task-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: auto;
+  padding: 0;
+}
+
+.tasks-page .assignee-chip {
+  white-space: nowrap;
+}
+
+.tasks-page .task-status-select {
+  width: 120px;
+  max-width: 120px;
+}
+
+@media (max-width: 900px) {
+  .tasks-page .task-card,
+  .tasks-page .task-card:hover {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 17px;
+  }
+
+  .tasks-page .task-card-actions {
+    justify-content: flex-start;
+    padding-top: 12px;
+    border-top: 1px solid #edf1f5;
+  }
+}
+
+@media (max-width: 560px) {
+  .tasks-page .task-card,
+  .tasks-page .task-card:hover {
+    padding: 14px;
+    border-radius: 11px;
+  }
+
+  .tasks-page .task-card-actions {
+    gap: 8px;
+  }
+
+  .tasks-page .assignee-chip {
+    white-space: normal;
+  }
+}
