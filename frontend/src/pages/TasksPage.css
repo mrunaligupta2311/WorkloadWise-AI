@@ -27,3 +27,126 @@
 .ww-rec-copy small{font-size:9px;color:#64748b}
 .ww-form-hint{font-size:10px;line-height:1.6;color:#64748b;background:#f5f8fc;border-radius:8px;padding:10px}
 @media(max-width:850px){.ww-recommendation{flex-wrap:wrap}.ww-recommendation .secondary-button{margin-left:28px}.task-card-actions{flex-wrap:wrap}}
+
+
+/* TASKS PAGE: CLEAN ROW LAYOUT FIX */
+.tasks-page {
+  min-width: 0;
+  width: 100%;
+}
+
+.tasks-page .task-summary {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 12px;
+}
+
+.tasks-page .task-summary > div {
+  min-width: 0;
+  min-height: 68px;
+  border-radius: 12px;
+  box-shadow: none;
+  transform: none;
+}
+
+.tasks-page .task-list-panel,
+.tasks-page .ww-recommendations {
+  min-width: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.tasks-page .task-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  width: 100%;
+}
+
+.tasks-page .task-card,
+.tasks-page .task-card:hover {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+  padding: 18px 2px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #edf1f4;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.tasks-page .task-card:last-child {
+  border-bottom: 0;
+}
+
+.tasks-page .task-card-main {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.tasks-page .task-card-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.tasks-page .task-card-copy h3 {
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.tasks-page .task-card-copy p {
+  overflow-wrap: anywhere;
+}
+
+.tasks-page .task-card-actions {
+  flex: 0 1 auto;
+  min-width: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tasks-page .assignee-chip {
+  min-width: 0;
+}
+
+.tasks-page .task-status-select {
+  flex-shrink: 0;
+}
+
+.tasks-page .task-search,
+.tasks-page .filter-control {
+  min-width: 0;
+}
+
+@media (max-width: 850px) {
+  .tasks-page .task-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tasks-page .task-card-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .tasks-page .task-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tasks-page .task-card {
+    padding: 15px 0;
+  }
+
+  .tasks-page .task-card-actions {
+    gap: 7px;
+  }
+}
